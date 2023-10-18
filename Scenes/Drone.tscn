@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bulsnnsoyqewo"]
+
+[ext_resource type="PackedScene" uid="uid://ccuqg6anub1rk" path="res://Scenes/PatrolDrone.dae" id="1_fxt0q"]
+[ext_resource type="Script" path="res://Scripts/Drone.gd" id="1_w47d0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lipjv"]
+size = Vector3(0.25, 0.02, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ewu0"]
+size = Vector3(0.1, 0.11, 0.1)
+
+[node name="Drone" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13, 0)
+script = ExtResource("1_w47d0")
+metadata/_edit_group_ = true
+
+[node name="FrameBox" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_lipjv")
+
+[node name="LandingBox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0647196, 0)
+shape = SubResource("BoxShape3D_3ewu0")
+
+[node name="DroneMesh" parent="." instance=ExtResource("1_fxt0q")]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -0.0371617, -0.162726, 0.0760545)
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0562883, 0.0331403)

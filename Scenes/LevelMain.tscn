@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://d20n1ektxqtat"]
+
+[ext_resource type="Texture2D" uid="uid://bbwskhd37gqmy" path="res://icon.svg" id="1_1vq5g"]
+[ext_resource type="PackedScene" uid="uid://bulsnnsoyqewo" path="res://Scenes/Drone.tscn" id="1_dvgjk"]
+[ext_resource type="Script" path="res://Scripts/MainCamera.gd" id="1_shx2o"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_w6wkk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pyf06"]
+albedo_texture = ExtResource("1_1vq5g")
+uv1_scale = Vector3(-16, -16, -16)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mb3dw"]
+material = SubResource("StandardMaterial3D_pyf06")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0d0sy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7b8xn"]
+albedo_texture = ExtResource("1_1vq5g")
+
+[sub_resource type="BoxMesh" id="BoxMesh_kes7f"]
+material = SubResource("StandardMaterial3D_7b8xn")
+
+[node name="level" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.423614, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.853553, 0.146447, 0.5, -0.5, 0.5, 0.707107, -0.146447, -0.853553, 0.5, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -1)
+script = ExtResource("1_shx2o")
+drone_node_path = NodePath("../Drone")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_w6wkk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_mb3dw")
+
+[node name="box" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, 0, 1, 2)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="box"]
+shape = SubResource("BoxShape3D_0d0sy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="box"]
+mesh = SubResource("BoxMesh_kes7f")
+
+[node name="Drone" parent="." instance=ExtResource("1_dvgjk")]
+motorFL_speed = 0.25
+motorFR_speed = 0.25
+motorBL_speed = 0.2
+motorBR_speed = 0.2
