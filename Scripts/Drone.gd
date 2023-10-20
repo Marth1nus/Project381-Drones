@@ -1,21 +1,23 @@
 extends RigidBody3D
 
-@export var motorFL_speed = 0.0
-@export var motorFR_speed = 0.0
-@export var motorBL_speed = 0.0
-@export var motorBR_speed = 0.0
+@export_range(0.0, 1.0, 0.01) var lift_speed = 0.0
 
-const motor_offset = 0.12
-const motorFL_offset = Vector3(+1, 0, +1) * motor_offset
-const motorFR_offset = Vector3(-1, 0, +1) * motor_offset
-const motorBL_offset = Vector3(+1, 0, -1) * motor_offset
-const motorBR_offset = Vector3(-1, 0, -1) * motor_offset
+const motor_position = 0.11
+const motorFL_position = Vector3(+1, 0, +1) * motor_position
+const motorFR_position = Vector3(-1, 0, +1) * motor_position
+const motorBL_position = Vector3(+1, 0, -1) * motor_position
+const motorBR_position = Vector3(-1, 0, -1) * motor_position
 
-const motor_force = Vector3(0,1,0) * 10.0
+const gravity_acceleration = 9.8
+const motor_acceleration = Vector3(0, 1, 0) * gravity_acceleration * 2 * 16.9 # 50% speed should basely excede gravity
 
 func _physics_process(delta):
-	var impulse = motor_force * delta
-	apply_impulse(impulse * motorFL_speed, motorFL_offset)
-	apply_impulse(impulse * motorFR_speed, motorFR_offset)
-	apply_impulse(impulse * motorBL_speed, motorBL_offset)
-	apply_impulse(impulse * motorBR_speed, motorBR_offset)
+	
+	# apply lift from all 4 motors
+	lift_speed = clamp(lift_speed, 0, 1)
+	var lift = to_global(motor_acceleration * delta * lift_speed)
+	apply_force(lift, motorFL_position)
+	apply_force(lift, motorFR_position)
+	apply_force(lift, motorBL_position)
+	apply_force(lift, motorBR_position)
+	

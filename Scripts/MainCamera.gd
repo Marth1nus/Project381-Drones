@@ -1,8 +1,6 @@
 extends Camera3D
 
-@export var drone_node_path : NodePath
-@onready var drone_node:Node3D = get_node(drone_node_path)
+@export var tracking_target : Node3D
 
 func _process(delta):
-	look_at(drone_node.global_position)
-	pass
+	look_at(tracking_target.global_position)

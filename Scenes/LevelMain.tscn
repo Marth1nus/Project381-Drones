@@ -12,6 +12,7 @@ uv1_scale = Vector3(-16, -16, -16)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mb3dw"]
 material = SubResource("StandardMaterial3D_pyf06")
+size = Vector2(16, 16)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0d0sy"]
 
@@ -28,10 +29,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.423614, 0)
 transform = Transform3D(0.853553, 0.146447, 0.5, -0.5, 0.5, 0.707107, -0.146447, -0.853553, 0.5, 0, 0, 0)
 shadow_enabled = true
 
-[node name="MainCamera" type="Camera3D" parent="."]
+[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("tracking_target")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -1)
 script = ExtResource("1_shx2o")
-drone_node_path = NodePath("../Drone")
+tracking_target = NodePath("../Drone")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
@@ -40,7 +41,6 @@ metadata/_edit_group_ = true
 shape = SubResource("WorldBoundaryShape3D_w6wkk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_mb3dw")
 
 [node name="box" type="RigidBody3D" parent="."]
@@ -54,7 +54,4 @@ shape = SubResource("BoxShape3D_0d0sy")
 mesh = SubResource("BoxMesh_kes7f")
 
 [node name="Drone" parent="." instance=ExtResource("1_dvgjk")]
-motorFL_speed = 0.25
-motorFR_speed = 0.25
-motorBL_speed = 0.2
-motorBR_speed = 0.2
+lift_speed = 0.5
