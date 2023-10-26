@@ -9,7 +9,7 @@ const motorBL_position = Vector3(+1, 0, -1) * motor_position
 const motorBR_position = Vector3(-1, 0, -1) * motor_position
 
 const gravity_acceleration = 9.8
-const motor_acceleration = Vector3(0, 1, 0) * gravity_acceleration * 2 * 16.9 # 50% speed should basely excede gravity
+const motor_acceleration = Vector3(0, 1, 0) * gravity_acceleration * 2 * 16.9 # 50% speed should barely excede gravity
 
 func _physics_process(delta):
 	

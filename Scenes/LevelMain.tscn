@@ -1,11 +1,19 @@
 [gd_scene load_steps=13 format=3 uid="uid://d20n1ektxqtat"]
 
 [ext_resource type="Texture2D" uid="uid://bbwskhd37gqmy" path="res://icon.svg" id="1_1vq5g"]
+[ext_resource type="Script" path="res://Scripts/CameraTracking.gd" id="1_bjr6a"]
 [ext_resource type="PackedScene" uid="uid://bulsnnsoyqewo" path="res://Scenes/Drone.tscn" id="1_dvgjk"]
-[ext_resource type="Script" path="res://Scripts/MainCamera.gd" id="1_shx2o"]
-[ext_resource type="Texture2D" uid="uid://dj4rldjfqnh06" path="res://Images/LocationA.svg" id="4_vjj0p"]
-[ext_resource type="Texture2D" uid="uid://14dd0j0rwoys" path="res://Images/LocationB.svg" id="5_bjl7i"]
-[ext_resource type="Texture2D" uid="uid://e8e4i6oag7cw" path="res://Images/LocationC.svg" id="6_qkrn2"]
+[ext_resource type="Texture2D" uid="uid://dj4rldjfqnh06" path="res://Asserts/Images/LocationA.svg" id="4_vjj0p"]
+[ext_resource type="Texture2D" uid="uid://14dd0j0rwoys" path="res://Asserts/Images/LocationB.svg" id="5_bjl7i"]
+[ext_resource type="Texture2D" uid="uid://e8e4i6oag7cw" path="res://Asserts/Images/LocationC.svg" id="6_qkrn2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0d0sy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7b8xn"]
+albedo_texture = ExtResource("1_1vq5g")
+
+[sub_resource type="BoxMesh" id="BoxMesh_kes7f"]
+material = SubResource("StandardMaterial3D_7b8xn")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_w6wkk"]
 
@@ -17,14 +25,6 @@ uv1_scale = Vector3(-16, -16, -16)
 material = SubResource("StandardMaterial3D_pyf06")
 size = Vector2(16, 16)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0d0sy"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7b8xn"]
-albedo_texture = ExtResource("1_1vq5g")
-
-[sub_resource type="BoxMesh" id="BoxMesh_kes7f"]
-material = SubResource("StandardMaterial3D_7b8xn")
-
 [node name="level" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.423614, 0)
 
@@ -34,8 +34,45 @@ shadow_enabled = true
 
 [node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("tracking_target")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -1)
-script = ExtResource("1_shx2o")
+script = ExtResource("1_bjr6a")
 tracking_target = NodePath("../Drone")
+
+[node name="QRCodes" type="Node3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.001, 0)
+
+[node name="A" type="Sprite3D" parent="QRCodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.01173, 0, 1.07101)
+flip_v = true
+pixel_size = 0.001
+axis = 1
+texture = ExtResource("4_vjj0p")
+
+[node name="B" type="Sprite3D" parent="QRCodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.996037, 0, 5.10942)
+flip_v = true
+pixel_size = 0.001
+axis = 1
+texture = ExtResource("5_bjl7i")
+
+[node name="C" type="Sprite3D" parent="QRCodes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.02312, 0, 2.96659)
+flip_v = true
+pixel_size = 0.001
+axis = 1
+texture = ExtResource("6_qkrn2")
+
+[node name="Drone" parent="." instance=ExtResource("1_dvgjk")]
+lift_speed = 0.5
+
+[node name="box" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, 0, 1.86839, 5.71346)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="box"]
+shape = SubResource("BoxShape3D_0d0sy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="box"]
+mesh = SubResource("BoxMesh_kes7f")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 metadata/_edit_group_ = true
@@ -45,40 +82,3 @@ shape = SubResource("WorldBoundaryShape3D_w6wkk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_mb3dw")
-
-[node name="box" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, 0, 1, 6.22054)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="box"]
-shape = SubResource("BoxShape3D_0d0sy")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="box"]
-mesh = SubResource("BoxMesh_kes7f")
-
-[node name="Drone" parent="." instance=ExtResource("1_dvgjk")]
-lift_speed = 0.5
-
-[node name="QRCodes" type="Node3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.600799, 0.000999987, 0.963905)
-
-[node name="A" type="Sprite3D" parent="QRCodes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.31148)
-flip_v = true
-pixel_size = 0.001
-axis = 1
-texture = ExtResource("4_vjj0p")
-
-[node name="B" type="Sprite3D" parent="QRCodes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.56106, 0, 4.67373)
-flip_v = true
-pixel_size = 0.001
-axis = 1
-texture = ExtResource("5_bjl7i")
-
-[node name="C" type="Sprite3D" parent="QRCodes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.42861, 0, 4.67373)
-flip_v = true
-pixel_size = 0.001
-axis = 1
-texture = ExtResource("6_qkrn2")

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj4rldjfqnh06"
-path.s3tc="res://.godot/imported/LocationA.svg-d87f71f0191ab7516caf47eae07a05ce.s3tc.ctex"
+uid="uid://e8e4i6oag7cw"
+path.s3tc="res://.godot/imported/LocationC.svg-1728773a61d4d82c4e2ec23bf4440a1d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Images/LocationA.svg"
-dest_files=["res://.godot/imported/LocationA.svg-d87f71f0191ab7516caf47eae07a05ce.s3tc.ctex"]
+source_file="res://Asserts/Images/LocationC.svg"
+dest_files=["res://.godot/imported/LocationC.svg-1728773a61d4d82c4e2ec23bf4440a1d.s3tc.ctex"]
 
 [params]
 

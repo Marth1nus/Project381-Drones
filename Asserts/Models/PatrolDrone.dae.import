@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ccuqg6anub1rk"
-path="res://.godot/imported/PatrolDrone.dae-1ab9c424ddd4f99f21055c62f543eb17.scn"
+uid="uid://8ybomf5hu2ov"
+path="res://.godot/imported/PatrolDrone.dae-5568f2e53fe148370f8e1ab4a519ee30.scn"
 
 [deps]
 
-source_file="res://Scenes/PatrolDrone.dae"
-dest_files=["res://.godot/imported/PatrolDrone.dae-1ab9c424ddd4f99f21055c62f543eb17.scn"]
+source_file="res://Asserts/Models/PatrolDrone.dae"
+dest_files=["res://.godot/imported/PatrolDrone.dae-5568f2e53fe148370f8e1ab4a519ee30.scn"]
 
 [params]
 
