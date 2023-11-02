@@ -62,7 +62,6 @@ axis = 1
 texture = ExtResource("6_qkrn2")
 
 [node name="Drone" parent="." instance=ExtResource("1_dvgjk")]
-lift_speed = 0.5
 
 [node name="box" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, 0, 1.86839, 5.71346)
