@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://d20n1ektxqtat"]
+
+[ext_resource type="Texture2D" uid="uid://bbwskhd37gqmy" path="res://icon.svg" id="1_1vq5g"]
+[ext_resource type="PackedScene" uid="uid://bulsnnsoyqewo" path="res://Scenes/Drone.tscn" id="1_dvgjk"]
+[ext_resource type="Script" path="res://Scripts/MainCamera.gd" id="1_shx2o"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_w6wkk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pyf06"]
+albedo_texture = ExtResource("1_1vq5g")
+uv1_scale = Vector3(-16, -16, -16)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mb3dw"]
+material = SubResource("StandardMaterial3D_pyf06")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0d0sy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7b8xn"]
+albedo_texture = ExtResource("1_1vq5g")
+
+[sub_resource type="BoxMesh" id="BoxMesh_kes7f"]
+material = SubResource("StandardMaterial3D_7b8xn")
+
+[node name="level" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.423614, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.853553, 0.146447, 0.5, -0.5, 0.5, 0.707107, -0.146447, -0.853553, 0.5, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(-1, -1.77636e-15, -8.74228e-08, -2.51672e-08, 0.957667, 0.287879, 8.37219e-08, 0.287879, -0.957667, 0, 2.14274, -8.39856)
+script = ExtResource("1_shx2o")
+drone_node_path = NodePath("../Drone")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_w6wkk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_mb3dw")
+
+[node name="Drone" parent="." instance=ExtResource("1_dvgjk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.201282, 0)
+
+[node name="box" type="RigidBody3D" parent="Drone"]
+transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, -0.773968, 0.670859, 7.4083)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Drone/box"]
+shape = SubResource("BoxShape3D_0d0sy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Drone/box"]
+mesh = SubResource("BoxMesh_kes7f")
+
+[node name="box2" type="RigidBody3D" parent="Drone"]
+transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, 8.87101, 0.199046, 4.37272)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Drone/box2"]
+shape = SubResource("BoxShape3D_0d0sy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Drone/box2"]
+mesh = SubResource("BoxMesh_kes7f")
+
+[node name="box3" type="RigidBody3D" parent="Drone"]
+transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, -9.01493, 0.388973, 1.64054)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Drone/box3"]
+shape = SubResource("BoxShape3D_0d0sy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Drone/box3"]
+mesh = SubResource("BoxMesh_kes7f")
+
+[node name="box4" type="RigidBody3D" parent="Drone"]
+transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, -8.9078, 0.440911, -7.31703)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Drone/box4"]
+shape = SubResource("BoxShape3D_0d0sy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Drone/box4"]
+mesh = SubResource("BoxMesh_kes7f")
+
+[node name="box5" type="RigidBody3D" parent="Drone"]
+transform = Transform3D(1, 0, 0, 0, 0.531857, 0.846834, 0, -0.846834, 0.531857, 8.64714, 0.239629, -7.31703)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Drone/box5"]
+shape = SubResource("BoxShape3D_0d0sy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Drone/box5"]
+mesh = SubResource("BoxMesh_kes7f")
